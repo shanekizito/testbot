@@ -62,7 +62,7 @@ setInterval(function(){
 
          
         
-        console.log(filterListID)
+       
         if(filterListID==listID) continue;
         
         let match=response.asset_events[p].starting_price/1000000000000000000;
