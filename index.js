@@ -4,7 +4,7 @@ import Discord from "discord.js";
 import{ Client, MessageEmbed, Intents,WebhookClient } from 'discord.js'
 import fetch from 'node-fetch';
 import { createRequire } from "module"; // Bring in the ability to create the 'require' method
-import { match } from 'assert/strict';
+//import { match } from 'assert/strict';
 
 
 const json = JSON.parse(await readFile(new URL('./config.json', import.meta.url)));
