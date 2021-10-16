@@ -76,7 +76,7 @@ setInterval(function(){
           toadzCollection.push(match);
          // console.log(toadzCollection);
         
-        console.log(listCollection)
+       // console.log(listCollection)
           
          
         const embedSellz = new MessageEmbed()
