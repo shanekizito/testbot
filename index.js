@@ -1,10 +1,10 @@
-
+ 
 import { readFile } from 'fs/promises';
 import Discord from "discord.js";
 import{ Client, MessageEmbed, Intents,WebhookClient } from 'discord.js'
 import fetch from 'node-fetch';
 import { createRequire } from "module"; // Bring in the ability to create the 'require' method
-//import { match } from 'assert/strict';
+import { match } from 'assert/strict';
 
 
 const json = JSON.parse(await readFile(new URL('./config.json', import.meta.url)));
@@ -30,7 +30,6 @@ client.once("ready", () => {
 
 
 let listCollection=[];
-let listID;
 
 
 setInterval(function(){ 
@@ -47,23 +46,29 @@ setInterval(function(){
 
        
        for(p=0;p<=toadzLength;p++){
+
+      const asset={
+
+          listName:response.asset_events[p].asset.name,
+          assetImage:response.asset_events[p].asset.image_url,
+          listLink:response.asset_events[p].asset.permalink,
+          listDescription:response.asset_events[p].asset.description,
+          listID:response.asset_events[p].asset.id
+         }
        
-        const listName=response.asset_events[p].asset.name;
-        const assetImage=response.asset_events[p].asset.image_url;
-        const listLink=response.asset_events[p].asset.permalink;
-        const  listDescription=response.asset_events[p].asset.description;
-        listID=response.asset_events[p].asset.id;
+
+      
 
          var  idList=function(){
-          return listID
+          return asset.listID
 
         }
          var filterListID=listCollection.filter(idList);
 
          
         
-       
-        if(filterListID==listID) continue;
+        console.log(filterListID)
+        if(filterListID==asset.listID) continue;
         
         let match=response.asset_events[p].starting_price/1000000000000000000;
        
@@ -72,25 +77,25 @@ setInterval(function(){
         if(match<1 ) {
         let i;
       
-        listCollection.push(listID);
+        listCollection.push(asset.listID);
           toadzCollection.push(match);
          // console.log(toadzCollection);
         
-       // console.log(listCollection)
+        console.log(listCollection)
           
          
         const embedSellz = new MessageEmbed()
           .setColor('#0099ff')
-          .setTitle(`${listName}`)
-          .setAuthor('ID', `${assetImage}`, `${listLink}`)
-          .setThumbnail(`${assetImage}`)
+          .setTitle(`${asset.listName}`)
+          .setAuthor('ID', `${asset.assetImage}`, `${asset.listLink}`)
+          .setThumbnail(`${asset.assetImage}`)
           .addFields(
             { name: '\u200B', value: '\u200B' },
-            { name: 'Description :', value: `${listDescription}`, inline: true },
-            { name: 'Link', value:`${listLink}`, inline: true },
+            { name: 'Description :', value: `${asset.listDescription}`, inline: true },
+            { name: 'Link', value:`${asset.listLink}`, inline: true },
           )
-          .addField('PRICE  :', `${match}ETH`, true)
-          .setImage(`${assetImage}`)
+          .addField('PRICE  :', `${asset.match}ETH`, true)
+          .setImage(`${asset.assetImage}`)
           .setTimestamp()
           .setFooter('At your service', 'https://img.icons8.com/emoji/48/000000/baby-chick--v2.png');
   
