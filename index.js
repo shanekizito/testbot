@@ -1,10 +1,10 @@
- 
+
 import { readFile } from 'fs/promises';
 import Discord from "discord.js";
 import{ Client, MessageEmbed, Intents,WebhookClient } from 'discord.js'
 import fetch from 'node-fetch';
 import { createRequire } from "module"; // Bring in the ability to create the 'require' method
-import { match } from 'assert/strict';
+//import { match } from 'assert/strict';
 
 
 const json = JSON.parse(await readFile(new URL('./config.json', import.meta.url)));
@@ -12,7 +12,7 @@ const json = JSON.parse(await readFile(new URL('./config.json', import.meta.url)
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
 
-const webhookClient = new WebhookClient({ url: 'https://discord.com/api/webhooks/892827914712809513/U9gbyNUEqAiNEQGlZSTHFPZBk1yByGbpvTsATWnMuDm_vrq7xiAAKTvrPBhoO0I5lnux' });
+const webhookClient = new WebhookClient({ url: 'https://discord.com/api/webhooks/807012249168248832/r2DPQ2TdmpjdwSWJnK5INZZdf8wTpXnsfU8ris2xdgI__UMLyn0eMYvIE4oojOnO5YLH' });
 
 
 const require = createRequire(import.meta.url); // construct the require method
@@ -53,7 +53,8 @@ setInterval(function(){
           assetImage:response.asset_events[p].asset.image_url,
           listLink:response.asset_events[p].asset.permalink,
           listDescription:response.asset_events[p].asset.description,
-          listID:response.asset_events[p].asset.id
+          listID:response.asset_events[p].asset.id,
+          match:response.asset_events[p].starting_price/1000000000000000000,
          }
        
 
@@ -70,7 +71,7 @@ setInterval(function(){
         console.log(filterListID)
         if(filterListID==asset.listID) continue;
         
-        let match=response.asset_events[p].starting_price/1000000000000000000;
+       
        
         // console.log(match,listName)
        
@@ -78,7 +79,7 @@ setInterval(function(){
         let i;
       
         listCollection.push(asset.listID);
-          toadzCollection.push(match);
+          toadzCollection.push(asset.matchmatch);
          // console.log(toadzCollection);
         
         console.log(listCollection)
